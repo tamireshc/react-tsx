@@ -5,13 +5,13 @@ import Resumo from "./Pages/Resumo";
 
 function App() {
   return (
-    <>
+    <div className="container">
       <Sidenav />
       <main>
         <Header />
         <Resumo />
       </main>
-    </>
+    </div>
   );
 }
 
