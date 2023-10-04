@@ -12,14 +12,11 @@ function useFetch<T>(URL: string, OPTIONS?: RequestInit): FetchState<T> {
   const [error, setError] = React.useState<null | string>(null);
 
   useEffect(() => {
-    const controller = new AbortController();
-    setLoading(true);
-    setData(null);
-
     const fetchData = async () => {
+      setLoading(true);
+      setData(null)
       try {
         const dataFetch = await fetch(URL, {
-          signal: controller.signal,
           method: OPTIONS?.method,
           headers: OPTIONS?.headers,
           ...OPTIONS,
@@ -27,20 +24,18 @@ function useFetch<T>(URL: string, OPTIONS?: RequestInit): FetchState<T> {
         if (!dataFetch.ok) throw new Error(`Erro:${dataFetch.status}`);
         const dataJson = await dataFetch.json();
         setData(dataJson);
-        console.log(dataJson);
       } catch (e) {
         if (e instanceof Error) {
           setError(e.message);
+          console.log(e.message)
         }
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     };
+
     fetchData();
-    return () => {
-      controller.abort();
-    };
-  }, [OPTIONS?.headers, OPTIONS?.method, URL]);
+  }, [URL]);
 
   return {
     data: data,
