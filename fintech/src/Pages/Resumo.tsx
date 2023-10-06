@@ -1,4 +1,5 @@
 import React from "react";
+import GraficoVendas from "../Components/GraficoVendas";
 import { DataContext } from "../Context/DataContext";
 
 const Resumo = () => {
@@ -47,7 +48,9 @@ const Resumo = () => {
           </span>
         </div>
       </div>
-      <div className="box mb">graficos</div>
+      <div className="box mb">
+        <GraficoVendas data={data} />
+      </div>
     </section>
   );
 };
